@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Leader } from '../shared/leader';
+import { LEADERS } from '../shared/leaders';
+
+import { Params, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { LeaderService } from '../services/leader.service';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +13,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  Leaders = LEADERS;
 
-  ngOnInit(): void {
-  }
+  constructor(private dishservice: LeaderService,
+    private route: ActivatedRoute,
+    private location: Location) { }
+
+    leader: Leader[];
+
+
+    ngOnInit() {
+      const id = this.route.snapshot.params['id'];
+      this.leader = this.dishservice.getLeader();
+    }
+
+    goBack(): void{
+      this.location.back();
+    }
 
 }
