@@ -15,7 +15,7 @@ export class AboutComponent implements OnInit {
 
   Leaders = LEADERS;
 
-  constructor(private dishservice: LeaderService,
+  constructor(private leaderservice: LeaderService,
     private route: ActivatedRoute,
     private location: Location) { }
 
@@ -24,7 +24,7 @@ export class AboutComponent implements OnInit {
 
     ngOnInit() {
       const id = this.route.snapshot.params['id'];
-      this.leader = this.dishservice.getLeader();
+      this.leaderservice.getLeader().then(leader=>this.leader=leader);
     }
 
     goBack(): void{
